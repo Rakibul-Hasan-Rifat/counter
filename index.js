@@ -1,32 +1,29 @@
-const incrementBtn = document.getElementById('increase_btn')
-const resetBtn = document.getElementById('reset_btn')
-const decrementBtn = document.getElementById('decrease_btn')
-let textElement = document.querySelector('h1');
-let number = parseInt(textElement.innerText);
+let count = 0;
+const btns = document.querySelectorAll('button');
+const valueElement = document.querySelector('h1');
 
-incrementBtn.addEventListener('click', () => {
-    textElement.innerText = ++number;
-    colorChange()
-})
-
-decrementBtn.addEventListener('click', () => {
-    textElement.innerText = --number;
-    colorChange();
-})
-
-resetBtn.addEventListener('click', () => {
-    number = 0;
-    textElement.innerText = number;
-    colorChange();
-})
-
-const colorChange = () => {
-    let { color } = textElement.style;
-    if (number < 0) {
-        textElement.style.color = 'red';
-    } else if (number > 0) {
-        textElement.style.color = 'green';
-    } else {
-        textElement.style.color = 'black'
-    }
-}
+btns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const btnText = e.target.innerText;
+        const transformedText = btnText.toLowerCase();
+        if (transformedText === 'increase') {
+            valueElement.innerText = ++count;
+        }
+        else if (transformedText === 'decrease') {
+            valueElement.innerText = --count;
+        }
+        else {
+            count = 0;
+            valueElement.innerText = count;
+        }
+        // changing color based on value
+        if (count > 0) {
+            valueElement.style.color = 'green';
+        }
+        else if (count < 0) {
+            valueElement.style.color = 'red';
+        } else {
+            valueElement.style.color = 'black';
+        }
+    });
+});
